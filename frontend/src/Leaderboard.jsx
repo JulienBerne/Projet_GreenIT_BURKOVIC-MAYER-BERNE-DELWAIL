@@ -17,7 +17,7 @@ const Leaderboard = () => {
   useEffect(() => {
     const fetchScores = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/posts/create`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/scores/`);
         if (!response.ok) {
           throw new Error(`Error: ${response.statusText}`);
         }
