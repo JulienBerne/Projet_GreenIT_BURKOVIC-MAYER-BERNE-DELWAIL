@@ -14,7 +14,7 @@ const MainPage = () => {
         Welcome to Minecraft Higher or Lower!
       </Typography>
       <Typography variant="h6" gutterBottom>
-        A game by Matthieu Burkovic and Arthur Le Guillerme
+        A game by Matthieu Burkovic,Julien Berne,Clement mayer et hugo delwail
       </Typography>
       <Grid container spacing={2} justifyContent="center" sx={{ marginTop: "20px" }}>
         <Grid item>
