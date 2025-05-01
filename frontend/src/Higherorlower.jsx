@@ -18,7 +18,7 @@ const HigherOrLower = () => {
 
   const fetchUserNames = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/posts/create`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/users`, {
         method: "GET",
       });
 
@@ -27,7 +27,7 @@ const HigherOrLower = () => {
       }
 
       const users = await response.json();
-      const names = users.map((user) => user.name); 
+      const names = users.map((user) => user.name);
       setName(names);
       return names;
     } catch (error) {
@@ -35,19 +35,18 @@ const HigherOrLower = () => {
     }
   };
 
-
   const saveScore = async () => {
     if (!name) {
       alert("Please enter your name to save your score.");
       return;
     }
-    
+
     try {
       let newUserNames = await fetchUserNames();
       let userID = null;
       const existingUser = newUserNames.find((newUserNames) => newUserNames === name);
       if (existingUser) {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/posts/create`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/users?name=${name}`, {
           method: "GET",
         });
         if (!response.ok) {
@@ -56,11 +55,11 @@ const HigherOrLower = () => {
         const users = await response.json();
 
         if (users.length > 0) {
-          const user = users[0];  
+          const user = users[0];
           userID = user.id;
         }
       } else {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/posts/create`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/users/create`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ name }),
@@ -70,21 +69,22 @@ const HigherOrLower = () => {
           throw new Error("Failed to create new user");
         }
         const newUser = await response.json();
-        userID = newUser.id; 
+        userID = newUser.id;
       }
-      const scoreResponse = await fetch(`${import.meta.env.VITE_API_URL}/posts/create`, {
+
+      const scoreResponse = await fetch(`${import.meta.env.VITE_API_URL}/scores/create`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId: userID, value: score  }),
+        body: JSON.stringify({ userId: userID, value: score }),
       });
-  
+
       if (!scoreResponse.ok) {
         throw new Error("Failed to save score");
       }
-      
+
       alert("Score saved successfully!");
       setName("");
-      setScore(0); 
+      setScore(0);
     } catch (error) {
       console.error("Error saving score:", error);
     }
@@ -97,7 +97,7 @@ const HigherOrLower = () => {
 
   const fetchRandomItems = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/posts/create`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/items/random`, {
         method: "GET",
       });
       if (!response.ok) {
@@ -110,7 +110,6 @@ const HigherOrLower = () => {
     }
   };
 
-
   const startGame = () => {
     fetchRandomItems();
     setScore(0);
@@ -122,7 +121,10 @@ const HigherOrLower = () => {
     const leftValue = items[0].value;
     const rightValue = items[1].value;
 
-    if ((guess === 'higher' && rightValue > leftValue) || (guess === 'lower' && rightValue < leftValue)) {
+    if (
+      (guess === "higher" && rightValue > leftValue) ||
+      (guess === "lower" && rightValue < leftValue)
+    ) {
       setScore(score + 100);
       fetchRandomItems(); // Load new items
     } else {
