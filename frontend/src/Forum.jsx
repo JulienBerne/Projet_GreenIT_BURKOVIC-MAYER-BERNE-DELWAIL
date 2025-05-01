@@ -20,7 +20,7 @@ const Forum = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch("http://localhost:3000/posts/");
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/posts/create`);
         if (!response.ok) {
           throw new Error(`Error: ${response.statusText}`);
         }
@@ -45,7 +45,7 @@ const Forum = () => {
     const requestBody = { title, content, userName };
 
     try {
-      const response = await fetch("http://localhost:3000/posts/create", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/posts/create`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(requestBody),
