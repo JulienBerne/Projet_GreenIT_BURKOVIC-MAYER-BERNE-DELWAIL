@@ -20,7 +20,7 @@ const Forum = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/posts/create`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/posts/`);
         if (!response.ok) {
           throw new Error(`Error: ${response.statusText}`);
         }
