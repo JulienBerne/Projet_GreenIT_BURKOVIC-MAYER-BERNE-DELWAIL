@@ -18,7 +18,7 @@ const HigherOrLower = () => {
 
   const fetchUserNames = async () => {
     try {
-      const response = await fetch("http://localhost:3000/users", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/posts/create`, {
         method: "GET",
       });
 
@@ -47,7 +47,7 @@ const HigherOrLower = () => {
       let userID = null;
       const existingUser = newUserNames.find((newUserNames) => newUserNames === name);
       if (existingUser) {
-        const response = await fetch(`http://localhost:3000/users?name=${name}`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/posts/create`, {
           method: "GET",
         });
         if (!response.ok) {
@@ -60,7 +60,7 @@ const HigherOrLower = () => {
           userID = user.id;
         }
       } else {
-        const response = await fetch("http://localhost:3000/users/create", {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/posts/create`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ name }),
@@ -72,7 +72,7 @@ const HigherOrLower = () => {
         const newUser = await response.json();
         userID = newUser.id; 
       }
-      const scoreResponse = await fetch("http://localhost:3000/scores/create", {
+      const scoreResponse = await fetch(`${import.meta.env.VITE_API_URL}/posts/create`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId: userID, value: score  }),
@@ -97,7 +97,7 @@ const HigherOrLower = () => {
 
   const fetchRandomItems = async () => {
     try {
-      const response = await fetch("http://localhost:3000/items/random", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/posts/create`, {
         method: "GET",
       });
       if (!response.ok) {
