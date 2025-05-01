@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider, Link } from "react-router-dom";
 import App from "./App";
-import HigherOrLower from "./HigherOrLower";
+import HigherOrLower from "./Higherorlower";
 import Leaderboard from "./Leaderboard";
 import Forum from "./Forum";
 import { Button, Typography, Box, Grid } from "@mui/material";
